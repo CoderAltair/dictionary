@@ -1,13 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:randomic/add_words.dart';
 import 'package:randomic/all_words.dart';
+import 'package:randomic/bloc/get_word/get_word_bloc.dart';
+import 'package:randomic/bloc/vocabluary/getvocabluary_bloc.dart';
+import 'package:randomic/essetianal.dart';
 import 'package:randomic/radn_words.dart';
 import 'package:randomic/services/isar_service.dart';
-import 'bloc/get_word_bloc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   IsarService().openDB();
   runApp(const MyApp());
 }
@@ -21,6 +26,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetWordBloc()..add(GetAllEvent()),
         ),
+        BlocProvider(
+          create: (context) => GetvocabluaryBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -32,7 +40,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'Translator'),
+        home: const MyHomePage(title: ''),
       ),
     );
   }
@@ -50,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     AllWordsScreen(),
     RandomWordsScreen(),
+    EssetianalPage(),
     AddWordsScreen(),
   ];
   @override
@@ -70,23 +79,31 @@ class _MyHomePageState extends State<MyHomePage> {
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 7, 67, 116),
           selectedLabelStyle: GoogleFonts.poppins(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 13),
+              color: Colors.red, fontWeight: FontWeight.w400, fontSize: 13),
           unselectedLabelStyle: GoogleFonts.poppins(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 12),
+              color: Colors.red, fontWeight: FontWeight.w400, fontSize: 12),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 7, 67, 116),
               icon: ImageIcon(
                 AssetImage("assets/images/house.png"),
               ),
               label: ("Words"),
             ),
             BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 7, 67, 116),
               icon: ImageIcon(
                 AssetImage("assets/images/grid.png"),
               ),
               label: ("Random"),
             ),
             BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 7, 67, 116),
+              icon: Icon(Icons.book),
+              label: ("Essetianal"),
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 7, 67, 116),
               icon: ImageIcon(
                 AssetImage("assets/images/add.png"),
               ),

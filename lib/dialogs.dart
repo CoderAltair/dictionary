@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:randomic/bloc/get_word_bloc.dart';
+import 'package:randomic/bloc/get_word/get_word_bloc.dart';
 import 'package:randomic/services/isar_service.dart';
 
 class ClearDialog extends StatelessWidget {

@@ -7,4 +7,5 @@ class Words {
   String? nameEn;
   String? nameUz;
   bool? isSelected;
+  Words({this.nameEn, this.nameUz});
 }
